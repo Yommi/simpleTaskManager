@@ -6,11 +6,23 @@ const globalErrorHandler = require('./Controllers/errorController');
 const User = require('./Models/userModel');
 const { createSendToken } = require('./Controllers/authController');
 const catchAsync = require('./Utils/catchAsync');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const app = express();
 
 // BODY PARSER
 app.use(express.json());
+
+// COOKIE-PARSER
+app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true, // Allow credentials (cookies) to be sent
+  })
+);
 
 // DEVELOPMENT LOGGING
 if (process.env.NODE_ENV === 'development') {
